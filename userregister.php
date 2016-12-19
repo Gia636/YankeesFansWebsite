@@ -1,10 +1,13 @@
 <?php
+//starting session
   ob_start();
   session_start();
 include_once 'databaseconnect.php';
+//checking if user is already logged in 
 if( isset($_SESSION['user'])!="" ){
     header("Location: YankeesFans.php");}
 $error = false;
+//if sign up button is clicked...
 if ( isset($_POST['btn-signup']) ) {
 
   $username = trim($_POST['username']);
@@ -30,7 +33,7 @@ if ( isset($_POST['btn-signup']) ) {
   $confirmpassword = trim($_POST['confirmpassword']);
   $confirmpassword = strip_tags($confirmpassword);
   $confirmpassword = htmlspecialchars($confirmpassword);
-
+// validation and sanitation
   if (empty($username)) {
    $error = true;
    $userError = "Please enter a username.";
@@ -123,10 +126,11 @@ $encryptedpassword = hash('sha256', $password);
     $error = true;
     $nomatch = "Passwords do not match.";
 }
+  //if nothing goes wrong insert into database
 if( !$error ) {
    $query = "INSERT INTO users(userName,userEmail,userPass,userNames,userPlayer) VALUES('$username','$email','$encryptedpassword','$name','$player')";
    $registered = mysql_query($query);
-    
+//if everything is successful the user is registered and can log in    
    if ($registered) {
     $errorType = "success";
     $errorMessage = "You are now registered. You can now login to access your profile.";
@@ -143,6 +147,7 @@ if( !$error ) {
   }
  }
 }
+//ending php and starting html
 ?>
 <!DOCTYPE html>
 <html>
