@@ -1,15 +1,16 @@
 <?php
+//staring the session
   ob_start();
   session_start();
   require_once 'databaseconnect.php';
-
+//if the user is already logged in go to the profile
 if ( isset($_SESSION['user'])!="" ) {
   header("Location: YankeesFans.php");
   exit;
  }
  
  $error = false;
- 
+ //if the login button is clicked...
  if( isset($_POST['btn-login']) ) { 
 
   $email = trim($_POST['email']);
@@ -20,7 +21,7 @@ if ( isset($_SESSION['user'])!="" ) {
   $pass = strip_tags($pass);
   $pass = htmlspecialchars($pass);
   
-  
+//check if email is entered and valid  
   if(empty($email)){
    $error = true;
    $emailError = "You need to enter your email address.";
@@ -28,20 +29,20 @@ if ( isset($_SESSION['user'])!="" ) {
    $error = true;
    $emailError = "This is not a valid email address.";
   }
-  
+ //check if password is entered 
   if(empty($pass)){
    $error = true;
    $passError = "You need to enter your password.";
   }
   
   if (!$error) {
-   
+//check password against hashed password in database   
    $password = hash('sha256', $pass);
-  
+//this is where the data is taken from in the database  
    $res=mysql_query("SELECT userId, userName, userPass FROM users WHERE userEmail='$email'");
    $row=mysql_fetch_array($res);
    $count = mysql_num_rows($res);
-   
+//checking login information   
    if( $count == 1 && $row['userPass']==$password ) {
     $_SESSION['user'] = $row['userId'];
     header("Location: YankeesFans.php");
@@ -52,6 +53,7 @@ if ( isset($_SESSION['user'])!="" ) {
   }
   
  }
+//ending php and starting html
 ?>
 <!DOCTYPE html>
 <html>
