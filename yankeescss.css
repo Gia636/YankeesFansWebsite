@@ -1,0 +1,31 @@
+body {
+    background: url('yankeespic.jpg') no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+h1 {
+color: red;
+font-family: "Arial";
+
+}
+
+h2 {
+color: blue;
+font-family: "Arial";
+
+}
+
+h3 {
+color: Black;
+font-family: "Arial";
+
+}
+
+a {
+color: Black;
+font-family: "Arial";
+
+}
