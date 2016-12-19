@@ -1,5 +1,5 @@
 <?php
-
+//classes and design patterns for use in the profile page
 class Greeting
 {
     private $greeting;
